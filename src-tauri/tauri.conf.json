@@ -1,0 +1,52 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "TaskFlow",
+  "version": "1.1.0",
+  "identifier": "app.taskflow.widget",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "widget",
+        "title": "TaskFlow Widget",
+        "width": 380,
+        "height": 620,
+        "minWidth": 320,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false
+      },
+      {
+        "label": "main",
+        "title": "TaskFlow",
+        "width": 1180,
+        "height": 800,
+        "minWidth": 720,
+        "minHeight": 520,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    }
+  }
+}

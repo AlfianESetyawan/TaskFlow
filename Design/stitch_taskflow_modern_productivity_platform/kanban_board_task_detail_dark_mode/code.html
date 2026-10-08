@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"obsidian":"#0B0F17","midnight":"#111622","surface-card":"#171D2A","surface-card-hover":"#1E2536","surface-panel":"#141924","surface-input":"#0E121B","surface-elevated":"#1F2637","surface-border":"#252C3E","primary":"#8B7CF8","primary-container":"#6353E5","primary-light":"#A99EFF","secondary":"#38BDF8","tertiary":"#F43F5E","accent-green":"#10B981","accent-amber":"#F59E0B"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","3xl":"1.5rem","full":"9999px"},"fontFamily":{"sans":["Plus Jakarta Sans","sans-serif"],"mono":["JetBrains Mono","monospace"]}}}};</script></head><body class="bg-[#0B0F17] font-sans text-slate-100 antialiased min-h-screen selection:bg-primary selection:text-white"><aside class="fixed left-0 top-0 h-screen w-72 bg-[#111622] border-r border-[#202738] shadow-2xl z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col p-5"><div class="flex items-center justify-between mb-6"><div class="flex items-center gap-2.5"><img alt="TaskFlow Logo" class="h-8 w-auto object-contain brightness-110 drop-shadow-[0_0_8px_rgba(139,124,248,0.4)]" src="https://lh3.googleusercontent.com/aida/AEtjO1XYY2kbSO7Maw29L79XmobktAUHiDYFxfnz3nIhIvDuhnH0FvQhywWYmSgjxaHvVkacW4sDYJ5e-qWCzMVLw-_0uQObvuS6wBpmTaE0kcyNET8_E5STJRSppT8z1jZCJsyFfwExVdjBnIan8xQocT6PByX7fNhKpf5PgXBREouaOGu8ArsOQH6ERLQRcmK625v-AIXMxW0KYLllamEjlX8qbvT1qL-_1NQ8AO8SLmCF"/><span class="font-bold text-xl tracking-tight text-white">TaskFlow</span></div><span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-violet-600/30 to-purple-500/30 border border-violet-500/40 text-violet-300 font-mono text-[10px] font-semibold tracking-wider uppercase shadow-[0_0_10px_rgba(139,124,248,0.2)]">PRO</span></div><div class="mb-6"><button class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#6353E5] to-[#7B68EE] text-white shadow-[0_4px_20px_rgba(99,83,229,0.45)] hover:shadow-[0_6px_24px_rgba(99,83,229,0.6)] hover:brightness-110 transition-all group" type="button"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] group-hover:rotate-90 transition-transform">add_circle</span><span class="text-sm font-semibold tracking-wide">Quick Add Task</span></div><kbd class="px-1.5 py-0.5 rounded-md bg-white/15 text-white/90 font-mono text-xs border border-white/10">⌘K</kbd></button></div><div class="mb-1.5"><span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2.5">Core Menu</span></div><nav class="flex flex-col gap-1"><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">dashboard</span><span class="text-sm font-medium">Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="all-tasks" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">check_circle</span><span class="text-sm font-medium">All Tasks</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="calendar" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">calendar_month</span><span class="text-sm font-medium">Calendar</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-xl bg-gradient-to-r from-violet-600/25 to-purple-600/10 text-violet-300 border border-violet-500/30 font-semibold shadow-sm" data-path="kanban-board" href="#"><span class="material-symbols-outlined text-[20px] text-violet-400">view_kanban</span><span class="text-sm font-semibold">Kanban Board</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="projects" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">folder</span><span class="text-sm font-medium">Projects</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">analytics</span><span class="text-sm font-medium">Analytics</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px] text-slate-400">settings</span><span class="text-sm font-medium">Settings</span></a></nav><div class="mt-6 mb-1.5"><span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2.5">Workspace</span></div><div class="flex flex-col gap-1"><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="projects" href="#"><div class="flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.6)]"></span><span class="text-xs font-medium">Design System</span></div><span class="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1C2333] text-slate-300 border border-[#2B354C]">12</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="projects" href="#"><div class="flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.6)]"></span><span class="text-xs font-medium">Mobile App v2</span></div><span class="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1C2333] text-slate-300 border border-[#2B354C]">8</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="projects" href="#"><div class="flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span><span class="text-xs font-medium">Personal Growth</span></div><span class="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1C2333] text-slate-300 border border-[#2B354C]">5</span></a><a class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-[#1A2232] hover:text-white transition-colors" data-path="projects" href="#"><div class="flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span><span class="text-xs font-medium">Creative Writing</span></div><span class="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1C2333] text-slate-300 border border-[#2B354C]">3</span></a></div></div><div class="p-4 bg-[#0E121B] border-t border-[#202738] flex flex-col gap-3.5"><div class="p-3 rounded-xl bg-[#141924] border border-[#232C3E] flex flex-col gap-2"><div class="flex justify-between items-center"><span class="text-xs text-slate-400 font-medium">Productivity Score</span><span class="text-xs font-mono text-violet-400 font-bold">84%</span></div><div class="w-full h-1.5 rounded-full bg-[#1C2434] overflow-hidden"><div class="h-full bg-gradient-to-r from-violet-500 to-sky-400 rounded-full shadow-[0_0_8px_rgba(139,124,248,0.5)]" style="width: 84%"></div></div></div><div class="flex items-center justify-between p-1 rounded-xl bg-[#171D2A] border border-[#252D3F]"><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">light_mode</span><span class="text-xs font-medium">Light</span></button><button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-sm font-semibold" type="button"><span class="material-symbols-outlined text-[16px]">dark_mode</span><span class="text-xs font-semibold">Dark</span></button></div><div class="flex items-center justify-between pt-1"><div class="flex items-center gap-2.5 min-w-0"><div class="relative flex-shrink-0"><img alt="Alex Rivera" class="w-9 h-9 rounded-full object-cover ring-2 ring-violet-500/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfNBhCqYHGxWQB9n03RF9J5DOh8SFSmMRRN01Y8opJ7y_gnvH8dl55CPPWZnK5L-Xm8z3KRs_t9uS5CULyGeR1-QZD4A_yXrXlrRIWX4vwoBnaU27HnyLuN7AO79g8oDsqXjplaxCrO5Kp3lJDvuTvrthyD9X-x7imo_po9SntMgnorcRXh0xxHRcQx_q5JaKmexLuOyy5FCHQwMUxjCPGHvwD5YcTOESLR0UiYOks"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-[#0E121B] shadow-[0_0_6px_rgba(52,211,153,0.8)]"></span></div><div class="flex flex-col min-w-0"><span class="text-xs font-bold text-white truncate">Alex Rivera</span><span class="text-[11px] font-mono text-slate-400 truncate">alex@taskflow.design</span></div></div><button class="p-1 rounded-lg text-slate-400 hover:bg-[#1A2232] hover:text-white transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">expand_more</span></button></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-[#0B0F17]/90 backdrop-blur-xl border-b border-[#1E2536] shadow-lg z-40 flex items-center justify-between px-8"><div class="flex items-center gap-4"><div class="flex items-center gap-2"><span class="text-xs text-slate-400 font-medium">Workspace</span><span class="material-symbols-outlined text-[16px] text-slate-600">chevron_right</span><span class="text-xs text-white font-semibold">Personal Focus</span></div><div class="hidden md:flex items-center gap-2 ml-2"><button class="px-2.5 py-1 rounded-full bg-[#181F2C] border border-[#273248] text-slate-200 text-xs font-medium hover:bg-[#20293A] transition-colors" type="button">Today</button><button class="px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-medium hover:bg-rose-500/25 transition-colors shadow-[0_0_8px_rgba(244,63,94,0.15)]" type="button">High Priority</button><button class="px-2.5 py-1 rounded-full bg-[#181F2C] border border-[#273248] text-slate-400 text-xs font-medium hover:text-slate-200 hover:bg-[#20293A] transition-colors" type="button">Due This Week</button></div></div><div class="flex items-center gap-4"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-slate-500 text-[18px]">search</span><input class="w-72 lg:w-80 pl-9 pr-11 py-1.5 rounded-xl bg-[#131823] border border-[#242C3F] text-slate-200 text-xs placeholder:text-slate-500 focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/40 transition-all" placeholder="Search tasks, notes, deadlines... ⌘F" type="text"/><kbd class="absolute right-2.5 px-1.5 py-0.5 rounded bg-[#1D2433] text-slate-400 border border-[#2B354C] font-mono text-[10px]">⌘F</kbd></div><div class="flex items-center gap-2.5"><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161C28] border border-[#273147] text-amber-300 text-xs font-semibold shadow-inner"><span class="text-[13px]">🔥</span><span class="font-mono">12-day streak</span></div><button class="relative p-2 rounded-xl text-slate-400 hover:bg-[#1A2232] hover:text-white transition-colors border border-transparent hover:border-[#273147]" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-rose-500 text-white font-mono text-[10px] flex items-center justify-center font-bold shadow-[0_0_8px_rgba(244,63,94,0.6)]">3</span></button></div></div></header><main class="w-full pt-16 bg-[#0B0F17] px-8 py-6 min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Command & Filter Deck -->
+<div class="flex flex-col gap-4 mb-6">
+<!-- Breadcrumb, Title & Global Board Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2.5">
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>
+            Sprint 42 • Active
+          </div>
+<span class="text-slate-500 text-xs font-mono">Updated 4m ago</span>
+</div>
+<div class="flex items-center gap-3">
+<h1 class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">Product Roadmap &amp; Sprint Board</h1>
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#141A26] border border-[#242D40] hover:border-violet-500/40 hover:bg-[#1B2232] transition-colors text-slate-200 text-xs font-semibold" type="button">
+<span class="w-2 h-2 rounded-full bg-violet-400 shadow-[0_0_6px_rgba(167,139,250,0.8)]"></span>
+<span>Mobile App Redesign v2</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Action Suite -->
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- View Switcher -->
+<div class="flex items-center p-1 rounded-xl bg-[#131823] border border-[#232C3E]">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-semibold shadow-md" type="button">
+<span class="material-symbols-outlined text-[16px]">view_kanban</span>
+<span>Board</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">format_list_bulleted</span>
+<span>List</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">timeline</span>
+<span>Timeline</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>Matrix</span>
+</button>
+</div>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#141A26] border border-[#252E42] hover:bg-[#1C2333] hover:border-violet-500/40 text-slate-200 text-xs font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-violet-400">auto_awesome</span>
+<span>Automate (3)</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#141A26] border border-[#252E42] hover:bg-[#1C2333] hover:border-slate-500 text-slate-200 text-xs font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-slate-400">tune</span>
+<span>Settings</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-semibold shadow-[0_4px_16px_rgba(139,124,248,0.4)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>New Task</span>
+</button>
+</div>
+</div>
+<!-- Filters, Tags & Grouping Strip -->
+<div class="p-3 rounded-2xl bg-[#121722] border border-[#202738] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- Search Task -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-slate-500 text-[16px]">search</span>
+<input class="w-56 pl-8 pr-3 py-1.5 rounded-lg bg-[#0E121B] border border-[#252C3D] text-slate-200 text-xs placeholder:text-slate-500 focus:outline-none focus:border-violet-500/50" placeholder="Filter tasks by tag, title..." type="text"/>
+</div>
+<div class="h-4 w-px bg-[#262F44] mx-1"></div>
+<!-- Priority Chips -->
+<span class="text-slate-400 text-xs uppercase tracking-wider pl-1 font-semibold">Priority:</span>
+<button class="px-2.5 py-1 rounded-lg bg-violet-600 text-white font-semibold text-xs shadow-xs" type="button">All</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-300 hover:bg-rose-500/25 transition-colors text-xs font-medium" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-400 shadow-[0_0_6px_rgba(244,63,94,0.8)]"></span>
+          Urgent
+        </button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#18202E] border border-[#293348] text-slate-300 hover:bg-[#20293B] transition-colors text-xs font-medium" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.8)]"></span>
+          High
+        </button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#18202E] border border-[#293348] text-slate-300 hover:bg-[#20293B] transition-colors text-xs font-medium" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>
+          Normal
+        </button>
+<div class="h-4 w-px bg-[#262F44] mx-1"></div>
+<!-- Assignee Avatars -->
+<div class="flex items-center -space-x-2 pl-1">
+<div class="relative w-7 h-7 rounded-full bg-violet-900 border border-violet-500/50 flex items-center justify-center text-violet-200 font-mono text-[10px] font-bold shadow-xs cursor-pointer hover:scale-110 transition-transform">
+            AR
+          </div>
+<div class="relative w-7 h-7 rounded-full bg-sky-950 border border-sky-500/50 flex items-center justify-center text-sky-200 font-mono text-[10px] font-bold shadow-xs cursor-pointer hover:scale-110 transition-transform">
+            JL
+          </div>
+<div class="relative w-7 h-7 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-200 font-mono text-[10px] font-bold shadow-xs cursor-pointer hover:scale-110 transition-transform">
+            SK
+          </div>
+<div class="w-7 h-7 rounded-full bg-[#1C2434] border border-[#2C384E] flex items-center justify-center text-slate-400 font-mono text-[10px] cursor-pointer hover:bg-[#242E42] transition-colors">
+            +4
+          </div>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-auto">
+<span class="text-slate-400 text-xs">Group by:</span>
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#18202E] border border-[#273248] text-slate-200 text-xs font-medium" type="button">
+<span>Status</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400">unfold_more</span>
+</button>
+<button class="p-1 rounded-lg text-slate-400 hover:text-white transition-colors" title="Column Layout Density" type="button">
+<span class="material-symbols-outlined text-[18px]">density_medium</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Primary Workspace: 4 Kanban Columns + Pinned Detail Workspace -->
+<div class="grid grid-cols-12 gap-6 items-start">
+<!-- Left: Kanban Interactive Columns (7 cols on 12-col desktop) -->
+<div class="col-span-12 xl:col-span-7 flex flex-col gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- 1. COLUMN: Backlog -->
+<div class="flex flex-col gap-3 rounded-2xl bg-[#131823]/80 border border-[#202739] p-3 min-w-[210px] shadow-sm">
+<!-- Column Header -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-100">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]"></span>
+<span class="text-xs font-bold tracking-tight">Backlog</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-mono text-[11px] font-bold">6</span>
+<button class="text-slate-400 hover:text-white" type="button"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-2.5">
+<!-- Card 1 -->
+<div class="p-3.5 rounded-xl bg-[#1A2130] border border-[#273246] hover:border-violet-500/40 hover:bg-[#20293B] shadow-md transition-all cursor-pointer flex flex-col gap-2.5 group">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-[#252E42] border border-[#313C54] text-slate-300 font-mono text-[10px] font-medium">Research</span>
+<span class="material-symbols-outlined text-[16px] text-slate-500 group-hover:text-violet-400 transition-colors">drag_indicator</span>
+</div>
+<h3 class="text-sm leading-snug text-white font-semibold group-hover:text-violet-300 transition-colors">Benchmark Competitor Microinteractions</h3>
+<p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">Examine fluid haptics, pull-to-refresh tension curves, and spring physics in Raycast and Linear mobile.</p>
+<div class="flex items-center justify-between pt-1 text-slate-400 text-xs font-mono">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-slate-500">checklist</span> 2/3</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-slate-500">attach_file</span> 4</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-violet-900 border border-violet-500/40 flex items-center justify-center text-violet-200 text-[10px] font-bold">
+                  SK
+                </div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-3.5 rounded-xl bg-[#1A2130] border border-[#273246] hover:border-violet-500/40 hover:bg-[#20293B] shadow-md transition-all cursor-pointer flex flex-col gap-2.5 group">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-[#252E42] border border-[#313C54] text-slate-300 font-mono text-[10px] font-medium">Marketing</span>
+<span class="px-1.5 py-0.5 rounded bg-[#273248] text-slate-300 text-[10px] font-mono font-bold">P3</span>
+</div>
+<h3 class="text-sm leading-snug text-white font-semibold group-hover:text-violet-300 transition-colors">Draft App Store Release Copy</h3>
+<div class="flex items-center justify-between pt-1 text-slate-400 text-xs font-mono">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-slate-500">checklist</span> 0/1</span>
+<span class="text-slate-500">Nov 02</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-sky-950 border border-sky-500/40 flex items-center justify-center text-sky-200 text-[10px] font-bold">
+                  JL
+                </div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-1 py-2 rounded-xl text-slate-400 hover:text-violet-300 hover:bg-[#1A2232] border border-dashed border-[#242D40] hover:border-violet-500/40 transition-colors text-xs font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add item</span>
+</button>
+</div>
+</div>
+<!-- 2. COLUMN: In Progress -->
+<div class="flex flex-col gap-3 rounded-2xl bg-[#131823]/80 border border-[#202739] p-3 min-w-[210px] shadow-sm">
+<!-- Column Header -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-slate-100">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]"></span>
+<span class="text-xs font-bold tracking-tight">In Progress</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-mono font-bold">WIP 4/5</span>
+<span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[11px] font-bold">4</span>
+</div>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-2.5">
+<!-- Active Selected Card -->
+<div class="p-3.5 rounded-xl bg-[#1E2536] border-2 border-violet-500 shadow-[0_0_24px_rgba(139,124,248,0.35)] cursor-pointer flex flex-col gap-2.5 relative">
+<div class="absolute -top-2 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-[9px] font-mono font-bold tracking-wider uppercase shadow-[0_0_10px_rgba(139,124,248,0.6)]">Active Inspect</div>
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-semibold">Engineering</span>
+<span class="px-1.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono text-[9px] font-bold uppercase tracking-wider">High</span>
+</div>
+<h3 class="text-sm leading-snug text-white font-bold drop-shadow-sm">Implement Fluid Gestures on iOS</h3>
+<!-- Mini Progress Bar -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-[10px] font-mono text-slate-300">
+<span>Progress</span>
+<span class="text-violet-300 font-bold">50%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-[#141A26] overflow-hidden border border-[#273147]">
+<div class="h-full bg-gradient-to-r from-violet-500 to-sky-400 rounded-full shadow-[0_0_8px_rgba(139,124,248,0.6)]" style="width: 50%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 text-slate-400 text-xs font-mono">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 text-rose-400 font-bold"><span class="material-symbols-outlined text-[14px]">alarm</span> In 2d</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-slate-500">chat_bubble</span> 3</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-violet-900 border border-violet-500/50 flex items-center justify-center text-violet-200 text-[10px] font-bold">
+                  AR
+                </div>
+</div>
+</div>
+<!-- Card 2 in In-Progress -->
+<div class="p-3.5 rounded-xl bg-[#1A2130] border border-[#273246] hover:border-violet-500/40 hover:bg-[#20293B] shadow-md transition-all cursor-pointer flex flex-col gap-2.5 group">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono text-[10px] font-semibold">Design System</span>
+<span class="px-1.5 py-0.5 rounded-md bg-[#283248] text-slate-300 text-[10px] font-mono font-bold">Med</span>
+</div>
+<h3 class="text-sm leading-snug text-white font-semibold group-hover:text-violet-300 transition-colors">Redesign Settings and Notifications Modal</h3>
+<div class="flex items-center justify-between pt-1 text-slate-400 text-xs font-mono">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-slate-500">attach_file</span> 1</span>
+<span class="text-slate-500">Oct 28</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-200 text-[10px] font-bold">
+                  SK
+                </div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-1 py-2 rounded-xl text-slate-400 hover:text-violet-300 hover:bg-[#1A2232] border border-dashed border-[#242D40] hover:border-violet-500/40 transition-colors text-xs font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add item</span>
+</button>
+</div>
+</div>
+<!-- 3. COLUMN: In Review -->
+<div class="flex flex-col gap-3 rounded-2xl bg-[#131823]/80 border border-[#202739] p-3 min-w-[210px] shadow-sm">
+<!-- Column Header -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-violet-500/10 border border-violet-500/20 text-slate-100">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.8)]"></span>
+<span class="text-xs font-bold tracking-tight">In Review</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-violet-400/20 text-violet-300 font-mono text-[11px] font-bold">3</span>
+<button class="text-slate-400 hover:text-white" type="button"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-2.5">
+<div class="p-3.5 rounded-xl bg-[#1A2130] border border-[#273246] hover:border-violet-500/40 hover:bg-[#20293B] shadow-md transition-all cursor-pointer flex flex-col gap-2.5 group">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-semibold">Frontend</span>
+<span class="px-1.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono text-[9px] font-bold uppercase tracking-wider">Urgent</span>
+</div>
+<h3 class="text-sm leading-snug text-white font-semibold group-hover:text-violet-300 transition-colors">Navigation Shell Breadcrumbs Refactor</h3>
+<p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">Ensure keyboard navigation supports quick path jumps and accessible focus trap.</p>
+<div class="flex items-center justify-between pt-1 text-slate-400 text-xs font-mono">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 text-emerald-400 font-bold"><span class="material-symbols-outlined text-[14px]">task_alt</span> 2/2</span>
+<span class="flex items-center gap-1 text-slate-400"><span class="material-symbols-outlined text-[14px] text-slate-500">reviews</span> PR #482</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-sky-950 border border-sky-500/40 flex items-center justify-center text-sky-200 text-[10px] font-bold">
+                  JL
+                </div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-1 py-2 rounded-xl text-slate-400 hover:text-violet-300 hover:bg-[#1A2232] border border-dashed border-[#242D40] hover:border-violet-500/40 transition-colors text-xs font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add item</span>
+</button>
+</div>
+</div>
+<!-- 4. COLUMN: Completed -->
+<div class="flex flex-col gap-3 rounded-2xl bg-[#131823]/80 border border-[#202739] p-3 min-w-[210px] shadow-sm">
+<!-- Column Header -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-slate-100">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+<span class="text-xs font-bold tracking-tight">Completed</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 font-mono text-[11px] font-bold">14</span>
+<button class="text-slate-400 hover:text-white" type="button"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-2.5">
+<div class="p-3.5 rounded-xl bg-[#161C27]/90 border border-[#222A3B] hover:border-emerald-500/30 hover:bg-[#1A2130] shadow-sm transition-all cursor-pointer flex flex-col gap-2 group opacity-85 hover:opacity-100">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-[#202736] text-slate-400 font-mono text-[10px]">Design</span>
+<span class="flex items-center gap-1 text-emerald-400 text-xs font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  Done
+                </span>
+</div>
+<h3 class="text-sm leading-snug text-slate-300 line-through font-medium">Design Tokens Specification v1.2</h3>
+<p class="text-xs text-slate-500 line-clamp-1">Exported variables and JSON specs to GitHub sync repository.</p>
+<div class="flex items-center justify-between pt-1 text-slate-500 text-xs font-mono">
+<span>Completed yesterday</span>
+<div class="w-6 h-6 rounded-full bg-[#242D3E] border border-[#313C52] flex items-center justify-center text-slate-400 text-[10px] font-bold">
+                  AR
+                </div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-1 py-2 rounded-xl text-slate-400 hover:text-violet-300 hover:bg-[#1A2232] border border-dashed border-[#242D40] hover:border-violet-500/40 transition-colors text-xs font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add item</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Metrics Overview Bento Widget -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-2xl bg-[#121722] border border-[#202738] shadow-sm">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-violet-500/15 border border-violet-500/30 flex items-center justify-center text-violet-400 shadow-[0_0_12px_rgba(139,124,248,0.2)]">
+<span class="material-symbols-outlined text-[22px]">speed</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-bold font-mono text-white leading-tight">27.4</span>
+<span class="text-xs text-slate-400">Velocity Points / Sprint</span>
+</div>
+</div>
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+<span class="material-symbols-outlined text-[22px]">published_with_changes</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-bold font-mono text-white leading-tight">88%</span>
+<span class="text-xs text-slate-400">Sprint Completion Rate</span>
+</div>
+</div>
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.2)]">
+<span class="material-symbols-outlined text-[22px]">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-bold font-mono text-white leading-tight">1.8d</span>
+<span class="text-xs text-slate-400">Avg Cycle Time per Card</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Integrated Task Detail Workspace (5 cols on 12-col desktop) -->
+<div class="col-span-12 xl:col-span-5 rounded-3xl bg-[#141924] border border-[#232B3C] shadow-2xl p-6 flex flex-col gap-6 relative">
+<!-- Panel Top Meta & Action Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Task ID: TF-1084</span>
+<span class="px-2 py-0.5 rounded-md bg-[#1F2737] border border-[#2E394F] text-slate-300 font-mono text-[11px] font-bold">iOS Architecture</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-[#1E2636] border border-transparent hover:border-[#2C364C] transition-colors" title="Copy Link" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-[#1E2636] border border-transparent hover:border-[#2C364C] transition-colors" title="Bookmark" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-[#1E2636] border border-transparent hover:border-[#2C364C] transition-colors" title="More Options" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Editable Title -->
+<div class="flex flex-col gap-1.5">
+<h2 class="text-2xl font-extrabold leading-tight text-white cursor-text hover:text-violet-300 transition-colors">
+          Implement Fluid Gestures on iOS
+        </h2>
+<p class="text-xs text-slate-400">
+          In project <span class="font-semibold text-slate-200">Mobile App Redesign v2</span> • Assigned to <span class="font-semibold text-violet-400">Alex Rivera</span>
+</p>
+</div>
+<!-- Quick Properties Grid (Status, Priority, Due Date) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#0E121B] border border-[#202738]">
+<!-- Status Dropdown -->
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-slate-400 uppercase font-mono font-bold tracking-wider">Status</span>
+<div class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#161C28] border border-[#283246] hover:border-violet-500/50 cursor-pointer transition-colors">
+<span class="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>
+<span class="text-xs text-slate-200 font-semibold">In Progress</span>
+<span class="material-symbols-outlined text-[16px] text-slate-500 ml-auto">arrow_drop_down</span>
+</div>
+</div>
+<!-- Priority Selector -->
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-slate-400 uppercase font-mono font-bold tracking-wider">Priority</span>
+<div class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 cursor-pointer hover:bg-rose-500/25 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-rose-400">flag</span>
+<span class="text-xs font-semibold">High</span>
+<span class="material-symbols-outlined text-[16px] text-rose-400 ml-auto">arrow_drop_down</span>
+</div>
+</div>
+<!-- Due Date -->
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-slate-400 uppercase font-mono font-bold tracking-wider">Due Date</span>
+<div class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#161C28] border border-[#283246] hover:border-violet-500/50 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[16px] text-violet-400">calendar_today</span>
+<span class="text-xs text-slate-200 font-semibold font-mono">Oct 24 (2d)</span>
+</div>
+</div>
+</div>
+<!-- Progress Meter & Interactive Subtasks Checklist -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-sm text-white font-bold tracking-tight">Subtasks Checklist</span>
+<span class="px-2 py-0.5 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 font-mono text-[11px] font-bold">2 of 4 done</span>
+</div>
+<span class="text-xs font-mono text-violet-400 font-bold">50%</span>
+</div>
+<!-- Dynamic Progress Track -->
+<div class="w-full h-2 rounded-full bg-[#0E121B] border border-[#222A3B] overflow-hidden">
+<div class="h-full bg-gradient-to-r from-violet-500 to-sky-400 rounded-full shadow-[0_0_10px_rgba(139,124,248,0.5)] transition-all duration-300" style="width: 50%"></div>
+</div>
+<!-- Checklist Items -->
+<div class="flex flex-col gap-2 mt-1">
+<!-- Item 1 (Checked) -->
+<label class="flex items-center gap-3 p-2.5 rounded-xl bg-[#111622] border border-[#202738] hover:border-violet-500/40 transition-colors cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded accent-violet-600 bg-[#0E121B] border-violet-500/60 cursor-pointer focus:ring-violet-500/40" type="checkbox"/>
+<span class="text-xs text-slate-400 line-through flex-1 group-hover:text-slate-300 transition-colors">
+              Define spring physics damping ratios
+            </span>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1A2232] border border-[#29344A] text-slate-400">Core</span>
+</label>
+<!-- Item 2 (Checked) -->
+<label class="flex items-center gap-3 p-2.5 rounded-xl bg-[#111622] border border-[#202738] hover:border-violet-500/40 transition-colors cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded accent-violet-600 bg-[#0E121B] border-violet-500/60 cursor-pointer focus:ring-violet-500/40" type="checkbox"/>
+<span class="text-xs text-slate-400 line-through flex-1 group-hover:text-slate-300 transition-colors">
+              Integrate pan gesture recognizer with friction edge
+            </span>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1A2232] border border-[#29344A] text-slate-400">iOS</span>
+</label>
+<!-- Item 3 (Pending) -->
+<label class="flex items-center gap-3 p-2.5 rounded-xl bg-[#171D2A] border border-[#263044] hover:border-violet-500/60 shadow-xs transition-colors cursor-pointer group">
+<input class="w-4 h-4 rounded accent-violet-600 bg-[#0E121B] border-slate-600 cursor-pointer focus:ring-violet-500/40" type="checkbox"/>
+<span class="text-xs text-white font-medium flex-1 group-hover:text-violet-300 transition-colors">
+              Haptic feedback on boundary overshoot
+            </span>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-500/20 border border-rose-500/30 text-rose-300 font-bold">Feedback</span>
+</label>
+<!-- Item 4 (Pending) -->
+<label class="flex items-center gap-3 p-2.5 rounded-xl bg-[#171D2A] border border-[#263044] hover:border-violet-500/60 shadow-xs transition-colors cursor-pointer group">
+<input class="w-4 h-4 rounded accent-violet-600 bg-[#0E121B] border-slate-600 cursor-pointer focus:ring-violet-500/40" type="checkbox"/>
+<span class="text-xs text-white font-medium flex-1 group-hover:text-violet-300 transition-colors">
+              Performance profiling at 120Hz ProMotion
+            </span>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1C2434] border border-[#2D384E] text-slate-300">QA</span>
+</label>
+</div>
+<button class="flex items-center gap-1.5 text-violet-400 hover:text-violet-300 text-xs font-semibold px-2 py-1.5 rounded-lg hover:bg-violet-500/10 transition-colors self-start mt-0.5" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add subtask</span>
+</button>
+</div>
+<!-- Rich Attachments Card -->
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="text-xs uppercase tracking-wider text-slate-400 font-bold font-mono">Reference Attachments (2)</span>
+<button class="text-violet-400 hover:text-violet-300 text-xs font-semibold hover:underline" type="button">+ Upload</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Figma File Attachment Card -->
+<div class="p-3 rounded-2xl bg-[#0E121B] border border-[#202738] hover:border-violet-500/40 hover:bg-[#141A26] transition-all cursor-pointer flex items-center gap-3 group">
+<div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-rose-400 text-[20px]">draw</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-semibold text-white truncate group-hover:text-violet-300 transition-colors">gesture-prototypes-v2.fig</span>
+<span class="text-[11px] font-mono text-slate-400">Figma Design • 14 MB</span>
+</div>
+</div>
+<!-- Video Demo Attachment Card -->
+<div class="p-3 rounded-2xl bg-[#0E121B] border border-[#202738] hover:border-violet-500/40 hover:bg-[#141A26] transition-all cursor-pointer flex items-center gap-3 group">
+<div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-semibold text-white truncate group-hover:text-sky-300 transition-colors">overshoot-damping-demo.mp4</span>
+<span class="text-[11px] font-mono text-slate-400">Screen capture • 3.2 MB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Description / Rich Text Preview -->
+<div class="flex flex-col gap-2">
+<span class="text-xs uppercase tracking-wider text-slate-400 font-bold font-mono">Implementation Notes</span>
+<div class="p-3.5 rounded-2xl bg-[#0E121B] border border-[#202738] text-slate-300 text-xs flex flex-col gap-2.5 leading-relaxed">
+<p>
+            Ensure physics configuration uses <code class="bg-[#1C2333] border border-[#2B354C] text-violet-300 px-1 py-0.5 rounded font-mono">dampingRatio: 0.82</code> and <code class="bg-[#1C2333] border border-[#2B354C] text-violet-300 px-1 py-0.5 rounded font-mono">initialVelocity: 0.0</code> when the card snaps back into the column bounds. Mentioning <span class="px-1.5 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30 font-semibold font-mono text-[11px]">@dev-team</span> for final code review.
+          </p>
+<div class="p-2.5 rounded-xl bg-[#080B10] border border-[#1A2130] text-emerald-300 font-mono text-[11px] overflow-x-auto shadow-inner">
+            let springBehavior = UISpringTimingParameters(dampingRatio: 0.82)
+          </div>
+</div>
+</div>
+<!-- Activity Timeline -->
+<div class="flex flex-col gap-3">
+<span class="text-xs uppercase tracking-wider text-slate-400 font-bold font-mono">Activity Log</span>
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-violet-400 shadow-[0_0_6px_rgba(167,139,250,0.8)] mt-1.5"></div>
+<div class="flex flex-col">
+<span class="text-xs text-slate-300">
+<strong class="font-semibold text-violet-400">Alex Rivera</strong> uploaded <code class="bg-[#0E121B] border border-[#222A3B] px-1 py-0.5 rounded text-[11px] font-mono text-slate-300">gesture-prototypes-v2.fig</code>
+</span>
+<span class="font-mono text-[10px] text-slate-400">2 hours ago</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-rose-400 shadow-[0_0_6px_rgba(244,63,94,0.8)] mt-1.5"></div>
+<div class="flex flex-col">
+<span class="text-xs text-slate-300">
+                Priority changed from <span class="line-through text-slate-400">Normal</span> to <strong class="text-rose-400">High</strong>
+</span>
+<span class="font-mono text-[10px] text-slate-400">Yesterday at 4:15 PM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Interactive Comment Input -->
+<div class="pt-2 flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-violet-900 border border-violet-500/50 flex items-center justify-center text-violet-200 font-mono text-xs font-bold flex-shrink-0">
+          AR
+        </div>
+<div class="relative flex-1 flex items-center">
+<input class="w-full pl-3 pr-10 py-2 rounded-xl bg-[#0E121B] border border-[#232B3C] text-slate-200 text-xs placeholder:text-slate-400 focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 transition-all" placeholder="Write an update or reply... (Markdown supported)" type="text"/>
+<button class="absolute right-2 p-1 rounded-lg text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Quick-Add Action Trigger (FAB) -->
+<div class="fixed bottom-6 right-8 z-50">
+<button class="flex items-center gap-2.5 px-5 py-3 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-[0_6px_24px_rgba(139,124,248,0.5)] hover:scale-105 active:scale-95 transition-all group" type="button">
+<span class="material-symbols-outlined text-[22px] group-hover:rotate-90 transition-transform">add</span>
+<span class="text-xs font-bold pr-1 tracking-wide uppercase">Omni-Add Task</span>
+</button>
+</div>
+</div></main></div></body></html>

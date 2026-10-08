@@ -1,0 +1,22 @@
+[package]
+name = "taskflow-widget"
+version = "1.1.0"
+description = "TaskFlow Windows widget"
+authors = ["TaskFlow"]
+license = ""
+repository = ""
+edition = "2024"
+rust-version = "1.90"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "taskflow_widget_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.1", features = [] }
+
+[dependencies]
+tauri = { version = "2.12.1", features = ["tray-icon"] }
+tauri-plugin-window-state = "2.5"

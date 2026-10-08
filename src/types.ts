@@ -1,0 +1,12 @@
+export type Status = 'todo' | 'progress' | 'review' | 'done';
+export type Priority = 'low' | 'medium' | 'high' | 'urgent';
+export type Recurrence = { frequency: 'none' | 'daily' | 'weekly' | 'monthly' | 'custom'; interval: number; endDate: string; paused: boolean };
+export type Subtask = { id: string; title: string; done: boolean };
+export type Reference = { id: string; title: string; url: string; type: string };
+export type Task = { id: string; title: string; description: string; projectId: string; assignedDate: string; startDate: string; deadline: string; priority: Priority; status: Status; subtasks: Subtask[]; references: Reference[]; notes: string; recurrence: Recurrence; completedAt: string; createdAt: string; updatedAt: string; archived: boolean; occurrenceKey: string };
+export type Project = { id: string; name: string; description: string; color: string; archived: boolean; createdAt: string; updatedAt: string };
+export type Template = { id: string; name: string; title: string; description: string; priority: Priority; subtasks: Subtask[]; createdAt: string };
+export type Activity = { id: string; taskId: string; taskTitle: string; action: string; at: string };
+export const statuses: Status[] = ['todo','progress','review','done'];
+export const statusLabels: Record<Status,string> = {todo:'To Do',progress:'In Progress',review:'Review',done:'Done'};
+export const priorities: Priority[] = ['low','medium','high','urgent'];
