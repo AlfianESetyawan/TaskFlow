@@ -2,6 +2,7 @@ node_modules/
 dist/
 .env
 .env.local
+Client Secret/
 .firebase/
 firebase-debug.log
 tsconfig.tsbuildinfo

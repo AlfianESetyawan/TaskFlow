@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { invoke, isTauri } from '@tauri-apps/api/core';
 import { AlertCircle, ArrowUpRight, CalendarDays, Check, Circle, Clock3, LogOut, Moon, Plus, Sun, X } from 'lucide-react';
 import { auth, configured } from '../services/firebase';
+import { signInWithGoogle } from '../services/googleSignIn';
 import { useWindowVisibility } from '../hooks/useWindowVisibility';
 import { createTask, updateTask, watchProjects, watchTasks } from '../services/data';
 import { widgetTaskGroups, type WidgetSection } from '../services/widgetTasks';
@@ -147,6 +148,15 @@ export default function WidgetApp() {
     finally { setLoginBusy(false); }
   }
 
+  async function googleLogin() {
+    if (loginBusy) return;
+    setLoginBusy(true);
+    setError('');
+    try { await signInWithGoogle(); }
+    catch (error) { setError(message(error)); }
+    finally { setLoginBusy(false); }
+  }
+
   async function quickAdd(event: FormEvent) {
     event.preventDefault();
     if (!user || !title.trim() || saveBusy) return;
@@ -206,7 +216,7 @@ export default function WidgetApp() {
           <button className="widget-primary" disabled={loginBusy}>{loginBusy ? 'Signing in...' : 'Sign in'}</button>
         </form>
         <button className="widget-link" onClick={() => run(() => openFullApp())}>Open full TaskFlow <ArrowUpRight size={14} /></button>
-        <p className="widget-hint">Google sign-in for the desktop widget will use a system-browser flow in a later phase.</p>
+        <button className="widget-link" disabled={loginBusy} onClick={() => void googleLogin()}>{loginBusy ? 'Waiting for sign-in...' : 'Continue with Google in browser'} <ArrowUpRight size={14} /></button>
       </div> : <>
         <section className="widget-hero">
           <span>{format(now, 'EEEE, MMMM d')}</span>

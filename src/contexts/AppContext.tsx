@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { GoogleAuthProvider, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithPopup, signOut, type User } from 'firebase/auth';
+import { browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
 import { auth, configured } from '../services/firebase';
+import { signInWithGoogle } from '../services/googleSignIn';
 import { useWindowVisibility } from '../hooks/useWindowVisibility';
 import { watchActivity, watchProjects, watchTasks, watchTemplates } from '../services/data';
 import type { Activity, Project, Task, Template } from '../types';
@@ -10,5 +11,5 @@ export function AppProvider({children}:{children:ReactNode}) { const visible=use
 useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem('taskflow-theme',theme)},[theme]);
 useEffect(()=>{if(!auth)return;setPersistence(auth,browserLocalPersistence).catch(e=>setError(e.message));return onAuthStateChanged(auth,u=>{setUser(u);setAuthLoading(false);if(!u)setDataLoading(false)},e=>{setError(e.message);setAuthLoading(false)})},[]);
 useEffect(()=>{if(!user){setTasks([]);setProjects([]);setTemplates([]);setActivity([]);setDataLoading(false);return}if(!visible){setDataLoading(false);return}setDataLoading(true);const fail=(e:Error)=>{setError(e.message);setDataLoading(false)};const unsub=[watchTasks(user.uid,rows=>{setTasks(rows);setDataLoading(false)},fail),watchProjects(user.uid,setProjects,fail),watchTemplates(user.uid,setTemplates,fail),watchActivity(user.uid,setActivity,fail)];return()=>unsub.forEach(fn=>fn())},[user,visible]);
-const value:Context={user,authLoading,dataLoading,error,setError,tasks,projects,templates,activity,theme,setTheme:setThemeState,login:async(email,password)=>{await signInWithEmailAndPassword(auth!,email,password)},register:async(email,password)=>{await createUserWithEmailAndPassword(auth!,email,password)},google:async()=>{await signInWithPopup(auth!,new GoogleAuthProvider())},logout:async()=>{await signOut(auth!)}};return <Ctx.Provider value={value}>{children}</Ctx.Provider> }
+const value:Context={user,authLoading,dataLoading,error,setError,tasks,projects,templates,activity,theme,setTheme:setThemeState,login:async(email,password)=>{await signInWithEmailAndPassword(auth!,email,password)},register:async(email,password)=>{await createUserWithEmailAndPassword(auth!,email,password)},google:signInWithGoogle,logout:async()=>{await signOut(auth!)}};return <Ctx.Provider value={value}>{children}</Ctx.Provider> }
 export function useApp(){const ctx=useContext(Ctx);if(!ctx)throw Error('AppProvider missing');return ctx}

@@ -52,7 +52,7 @@ TaskFlow version 1.1.0 includes the first widget implementation in `src/widget/`
 - [x] Move selectors for today's focus, upcoming, overdue, and no-deadline tasks into shared TypeScript functions. Reuse `src/types.ts` and the Firebase services in `src/services/data.ts`; keep Tauri window calls separate.
 - [ ] Connect the widget to the same user-scoped Firestore paths. Listeners and hide/show cleanup are implemented; verify live sync with a signed-in account.
 - [ ] Test a separate desktop session. Web browser and WebView2 storage are separate, so do not assume website sign-in carries over. Start with email/password and verify persistence after app restart.
-- [ ] Plan Google sign-in through the **system browser** with a safe return path. Google OAuth disallows authorization requests in embedded user agents; evaluate Tauri deep links and Windows single-instance handling before implementing this. [Google OAuth policy](https://developers.google.com/identity/protocols/oauth2/policies), [Tauri deep links](https://v2.tauri.app/reference/javascript/deep-link/)
+- [x] Implement Google sign-in through the system browser with a temporary loopback callback, PKCE, and state validation. Configure a Google Desktop OAuth client ID and verify it with a live account in the installed app. [Google desktop OAuth](https://developers.google.com/identity/protocols/oauth2/native-app)
 - [ ] Keep Firebase Admin credentials and OAuth tokens out of the frontend bundle and plain widget settings. Retain Firestore ownership rules.
 
 **Done when:** Widget and website show the same user's tasks, cross-device edits synchronize, sign-out clears the widget, and another account cannot access those tasks.
