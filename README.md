@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow 1.1.0 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
+TaskFlow 1.2.0 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
 
 ## Design mapping
 
@@ -8,10 +8,10 @@ TaskFlow 1.1.0 is a React, TypeScript, Vite, and Firebase task manager built fro
 | --- | --- |
 | `dashboard` and `dashboard_dark_mode` | `/` dashboard |
 | `calendar_planner` and `calendar_planner_dark_mode` | `/calendar` planner |
-| `kanban_board_task_detail` and its dark variant | `/board` plus the shared task detail editor |
+| `kanban_board_task_detail` and its dark variant | `/board` plus the task details and edit dialogs |
 | `kinetic_clarity` design guides | Shared colors, typography, card shape, spacing, and theme tokens |
 
-The six HTML files are static Tailwind CDN mockups. Each has a corresponding screenshot. The two Kinetic Clarity directories contain design guides rather than page mockups. The only image assets are the screenshots; the HTML also references remote Google hosted images and fonts. The app uses CSS for the brand mark and Lucide icons so it does not depend on the mockups' broken remote logo. It reuses the visual patterns: left workspace sidebar, compact top bar, gradient hero, bento cards, tinted task cards, calendar grid, Kanban columns, and a task detail panel. Projects, references, templates, analytics, activity, and settings extend those patterns.
+The six HTML files are static Tailwind CDN mockups. Each has a corresponding screenshot. The two Kinetic Clarity directories contain design guides rather than page mockups. The only image assets are the screenshots; the HTML also references remote Google hosted images and fonts. The app uses CSS for the brand mark and Lucide icons so it does not depend on the mockups' broken remote logo. It reuses the visual patterns: left workspace sidebar, compact top bar, gradient hero, bento cards, tinted task cards, calendar grid, Kanban columns, and task dialogs. Projects, references, templates, analytics, activity, and settings extend those patterns.
 
 ## Run locally
 
@@ -26,7 +26,9 @@ Without Firebase configuration, the sign in page explains what is missing and di
 
 ## Deployment
 
-`npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`. Set the `VITE_FIREBASE_*` variables in the hosting provider's build environment. Firebase's client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
+`npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`, with project `taskflow-474ab` selected in `.firebaserc`. Set the `VITE_FIREBASE_*` variables before building. The Firebase client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
+
+To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting`. Add the Hosting domain to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
 
 ## Data model
 
@@ -36,13 +38,13 @@ The `src/services/data.ts` functions are shared by the web app and Tauri widget.
 
 ## Windows widget (Tauri v2)
 
-The widget is a companion window backed by the same Firebase account and Firestore collections. It has Today, Next 7 days, Overdue, and No date views, Quick Add, task completion with Undo, and a tray menu. Selecting a task opens its editor in the full TaskFlow window.
+The widget is a companion window backed by the same Firebase account and Firestore collections. It has Today, Next 7 days, Overdue, and No date views, Quick Add, task completion with Undo, and a tray menu. Selecting a task opens its details in the full TaskFlow window.
 
 1. Install the [Tauri Windows prerequisites](https://v2.tauri.app/start/prerequisites/): Rust with the MSVC toolchain, Microsoft C++ Build Tools with the Windows SDK, and WebView2. Check your setup with `npm exec tauri info`.
 2. Keep the same `VITE_FIREBASE_*` values in `.env` as the web app. Enable Firebase Email/Password and Google authentication, and deploy the repository's Firestore rules. In Google Cloud Console, select the **same project as Firebase** and create an OAuth client with application type **Desktop app**, then set its client ID as `VITE_GOOGLE_DESKTOP_CLIENT_ID` in `.env`. The number before the hyphen in that ID should match `VITE_FIREBASE_MESSAGING_SENDER_ID`. If Google reports `client_secret is missing` during token exchange, set `GOOGLE_DESKTOP_CLIENT_SECRET` to the secret shown for that Desktop client and rebuild. The web OAuth client ID is not suitable for the desktop loopback redirect. Desktop OAuth client secrets are embedded in installed applications and cannot be kept confidential.
 3. Run `npm install`, then `npm run widget:dev`. For an installer, run `npm run widget:build`; the NSIS output is under `src-tauri/target/release/bundle/nsis/`.
 
-The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The current installer is `src-tauri/target/release/bundle/nsis/TaskFlow_1.1.0_x64-setup.exe`.
+The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.0 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.0_x64-setup.exe`.
 
 For a quick UI preview without Rust, run `npm run dev` and open `http://localhost:5173/?widget-preview=1`. Browser preview uses that browser's Firebase session. The installed widget uses WebView2 storage and requires a separate sign-in. Its Google button opens the default browser and receives the result through a temporary `127.0.0.1` callback, which times out after three minutes. The full Tauri window uses the same flow. The web app continues to use Firebase's browser popup.
 
