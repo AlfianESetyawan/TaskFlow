@@ -1,6 +1,6 @@
 [package]
 name = "taskflow-widget"
-version = "1.2.3"
+version = "1.2.4"
 description = "TaskFlow Windows widget"
 authors = ["TaskFlow"]
 license = ""

@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow 1.2.3 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
+TaskFlow 1.2.4 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
 
 ## Design mapping
 
@@ -28,13 +28,13 @@ Without Firebase configuration, the sign in page explains what is missing and di
 
 `npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`. `.firebaserc` selects Firebase project `taskflow-474ab` and the `taskflow-byaleks` Hosting site, which serves `taskflow-byaleks.web.app`. Set the `VITE_FIREBASE_*` variables before building. The Firebase client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
 
-To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting:app`. Add `taskflow-byaleks.web.app` to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
+To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting:app`. The web app links to a Windows download at `public/downloads/TaskFlow_1.2.4_Windows.zip`; extract it and run the installer inside. Firebase Hosting on the Spark plan rejects `.exe` files. Package a new installer as a ZIP and update `src/download.ts` for each desktop release before building the site. Add `taskflow-byaleks.web.app` to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
 
 ## Data model
 
 All data is scoped to the signed in user: `users/{uid}/tasks`, `projects`, `templates`, and `activityLogs`. The app uses live Firestore listeners, capped at 1,000 tasks, 300 projects, 200 templates, and 100 recent activity entries. Task reads, filters, dashboard metrics, and charts derive from those live collections. Deadlines are empty strings when absent and are never filled automatically. Recurring tasks create the next occurrence when the current one is completed; an occurrence key prevents duplicates visible in the current task window.
 
-Tasks have a manually set progress percentage from 0 to 100. Setting it to 100 completes the task; completing through a checkbox or Kanban also sets it to 100. Reopening a completed task restarts progress at 0. Older tasks without a stored percentage display 0, or 100 if already completed. Project progress is the average of its tasks' percentages.
+Tasks have a manually set progress percentage from 0 to 100 in both the task details and edit dialogs. Setting it to 100 completes the task; completing through a checkbox or Kanban also sets it to 100. Reopening a completed task restarts progress at 0. Older tasks without a stored percentage display 0, or 100 if already completed. Project progress is the average of its tasks' percentages.
 
 The `src/services/data.ts` functions are shared by the web app and Tauri widget. Settings are stored in browser or WebView local storage; data export downloads JSON.
 
@@ -48,7 +48,7 @@ The widget is a companion window backed by the same Firebase account and Firesto
 2. Keep the same `VITE_FIREBASE_*` values in `.env` as the web app. Enable Firebase Email/Password and Google authentication, and deploy the repository's Firestore rules. In Google Cloud Console, select the **same project as Firebase** and create an OAuth client with application type **Desktop app**, then set its client ID as `VITE_GOOGLE_DESKTOP_CLIENT_ID` in `.env`. The number before the hyphen in that ID should match `VITE_FIREBASE_MESSAGING_SENDER_ID`. If Google reports `client_secret is missing` during token exchange, set `GOOGLE_DESKTOP_CLIENT_SECRET` to the secret shown for that Desktop client and rebuild. The web OAuth client ID is not suitable for the desktop loopback redirect. Desktop OAuth client secrets are embedded in installed applications and cannot be kept confidential.
 3. Run `npm install`, then `npm run widget:dev`. For an installer, run `npm run widget:build`; the NSIS output is under `src-tauri/target/release/bundle/nsis/`.
 
-The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.3 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.3_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
+The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.4 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.4_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
 
 For a quick UI preview without Rust, run `npm run dev` and open `http://localhost:5173/?widget-preview=1`. Browser preview uses that browser's Firebase session. The installed widget uses WebView2 storage and requires a separate sign-in. Its Google button opens the default browser and receives the result through a temporary `127.0.0.1` callback, which times out after three minutes. The full Tauri window uses the same flow. The web app continues to use Firebase's browser popup.
 
