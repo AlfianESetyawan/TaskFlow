@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "TaskFlow",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "identifier": "app.taskflow.widget",
   "build": {
     "frontendDist": "../dist",
@@ -28,6 +28,7 @@
         "height": 800,
         "minWidth": 720,
         "minHeight": 520,
+        "dragDropEnabled": false,
         "visible": false
       }
     ],
