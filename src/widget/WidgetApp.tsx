@@ -6,7 +6,7 @@ import { AlertCircle, ArrowUpRight, CalendarDays, Check, Circle, Clock3, LogOut,
 import { auth, configured } from '../services/firebase';
 import { signInWithGoogle } from '../services/googleSignIn';
 import { useWindowVisibility } from '../hooks/useWindowVisibility';
-import { createTask, updateTask, watchProjects, watchTasks } from '../services/data';
+import { createTask, taskProgress, updateTask, watchProjects, watchTasks } from '../services/data';
 import { widgetTaskGroups, type WidgetSection } from '../services/widgetTasks';
 import type { Project, Task } from '../types';
 import './widget.css';
@@ -101,7 +101,7 @@ function TaskRow({ task, project, busy, onToggle, onOpen }: {
         {task.deadline && <span className={task.deadline < format(new Date(), 'yyyy-MM-dd') ? 'widget-late' : ''}>
           <CalendarDays size={12} /> {format(parseISO(task.deadline), 'MMM d')}
         </span>}
-        {task.subtasks.length > 0 && <span>{task.subtasks.filter(item => item.done).length}/{task.subtasks.length} steps</span>}
+        {task.subtasks.length > 0 && <span>{task.subtasks.filter(item => item.done).length}/{task.subtasks.length} steps</span>}<span>{taskProgress(task)}%</span>
       </span>
     </button>
     <span className={`widget-priority widget-${task.priority}`} title={`${task.priority} priority`} />
