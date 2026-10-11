@@ -26,9 +26,9 @@ Without Firebase configuration, the sign in page explains what is missing and di
 
 ## Deployment
 
-`npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`, with project `taskflow-474ab` selected in `.firebaserc`. Set the `VITE_FIREBASE_*` variables before building. The Firebase client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
+`npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`. `.firebaserc` selects Firebase project `taskflow-474ab` and the `taskflow-byaleks` Hosting site, which serves `taskflow-byaleks.web.app`. Set the `VITE_FIREBASE_*` variables before building. The Firebase client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
 
-To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting`. Add the Hosting domain to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
+To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting:app`. Add `taskflow-byaleks.web.app` to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
 
 ## Data model
 

@@ -1,5 +1,12 @@
 {
   "projects": {
     "default": "taskflow-474ab"
+  },
+  "targets": {
+    "taskflow-474ab": {
+      "hosting": {
+        "app": ["taskflow-byaleks"]
+      }
+    }
   }
 }
