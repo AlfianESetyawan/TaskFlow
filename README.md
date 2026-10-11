@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow 1.2.1 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
+TaskFlow 1.2.2 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
 
 ## Design mapping
 
@@ -36,6 +36,8 @@ All data is scoped to the signed in user: `users/{uid}/tasks`, `projects`, `temp
 
 The `src/services/data.ts` functions are shared by the web app and Tauri widget. Settings are stored in browser or WebView local storage; data export downloads JSON.
 
+Today's Focus shows tasks due today first, followed by tasks assigned today. If nothing is due today, it ranks all active tasks using task priority (20/40/60/80 points from low to urgent), project priority (up to 12 points), and deadline proximity (50 points today, increasing for overdue work and decreasing for later deadlines). A task assigned today gets 8 additional points. The first five tasks appear in the dashboard.
+
 ## Windows widget (Tauri v2)
 
 The widget is a companion window backed by the same Firebase account and Firestore collections. It has Today, Next 7 days, Overdue, and No date views, Quick Add, task completion with Undo, and a tray menu. Selecting a task opens its details in the full TaskFlow window.
@@ -44,7 +46,7 @@ The widget is a companion window backed by the same Firebase account and Firesto
 2. Keep the same `VITE_FIREBASE_*` values in `.env` as the web app. Enable Firebase Email/Password and Google authentication, and deploy the repository's Firestore rules. In Google Cloud Console, select the **same project as Firebase** and create an OAuth client with application type **Desktop app**, then set its client ID as `VITE_GOOGLE_DESKTOP_CLIENT_ID` in `.env`. The number before the hyphen in that ID should match `VITE_FIREBASE_MESSAGING_SENDER_ID`. If Google reports `client_secret is missing` during token exchange, set `GOOGLE_DESKTOP_CLIENT_SECRET` to the secret shown for that Desktop client and rebuild. The web OAuth client ID is not suitable for the desktop loopback redirect. Desktop OAuth client secrets are embedded in installed applications and cannot be kept confidential.
 3. Run `npm install`, then `npm run widget:dev`. For an installer, run `npm run widget:build`; the NSIS output is under `src-tauri/target/release/bundle/nsis/`.
 
-The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.1 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.1_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
+The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.2 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.2_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
 
 For a quick UI preview without Rust, run `npm run dev` and open `http://localhost:5173/?widget-preview=1`. Browser preview uses that browser's Firebase session. The installed widget uses WebView2 storage and requires a separate sign-in. Its Google button opens the default browser and receives the result through a temporary `127.0.0.1` callback, which times out after three minutes. The full Tauri window uses the same flow. The web app continues to use Firebase's browser popup.
 
