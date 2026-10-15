@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { isTauri } from '@tauri-apps/api/core';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import './styles.css';
+import { DesktopUpdateNotice } from './components/DesktopUpdates';
 
 const widget = (isTauri() && getCurrentWindow().label === 'widget') ||
   new URLSearchParams(location.search).has('widget-preview');
@@ -13,5 +14,6 @@ createRoot(document.getElementById('root')!).render(
     <Suspense fallback={<div className="center-screen">Loading TaskFlow...</div>}>
       <Entry />
     </Suspense>
+    {!widget && <DesktopUpdateNotice />}
   </React.StrictMode>,
 );

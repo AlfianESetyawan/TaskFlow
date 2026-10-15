@@ -10,6 +10,7 @@ use rand::RngCore;
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+mod updates;
 
 struct PendingTask(Mutex<Option<String>>);
 struct GoogleSignIn(Mutex<bool>);
@@ -149,13 +150,15 @@ fn hide_widget(app: AppHandle) -> Result<(), String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
   tauri::Builder::default()
+    .plugin(tauri_plugin_updater::Builder::new().build())
     .plugin(tauri_plugin_notification::init())
     .plugin(tauri_plugin_window_state::Builder::default()
       .with_state_flags(StateFlags::SIZE | StateFlags::POSITION)
       .build())
     .manage(PendingTask(Mutex::new(None)))
     .manage(GoogleSignIn(Mutex::new(false)))
-    .invoke_handler(tauri::generate_handler![open_main_window, take_pending_task, hide_widget, sign_in_with_google])
+    .manage(updates::DesktopUpdater::default())
+    .invoke_handler(tauri::generate_handler![open_main_window, take_pending_task, hide_widget, sign_in_with_google, updates::desktop_update_status, updates::check_desktop_update, updates::install_desktop_update])
     .setup(|app| {
       let toggle = MenuItem::with_id(app, "toggle", "Show/Hide Widget", true, None::<&str>)?;
       let open = MenuItem::with_id(app, "open", "Open TaskFlow", true, None::<&str>)?;
@@ -180,6 +183,7 @@ pub fn run() {
           _ => {}
         })
         .build(app)?;
+      updates::start(app.handle());
       Ok(())
     })
     .on_window_event(|window, event| {

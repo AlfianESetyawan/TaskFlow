@@ -70,9 +70,9 @@ function SectionHeading({ icon, children, count }: { icon: ReactNode; children: 
   return <h3 className="task-section-heading">{icon}<span>{children}</span>{count !== undefined && <span className="task-section-count">{count}</span>}</h3>;
 }
 
-export function TaskEditor({ task, defaultDate, onClose }: { task?: Task; defaultDate?: string; onClose: () => void }) {
+export function TaskEditor({ task, defaultDate, defaultProjectId, onClose }: { task?: Task; defaultDate?: string; defaultProjectId?: string; onClose: () => void }) {
   const { user, projects, tasks, setError } = useApp();
-  const [form, setForm] = useState<Omit<Task, 'id'>>(() => task ? { ...withoutId(task), progress: taskProgress(task) } : { ...blankTask(), deadline: defaultDate || '' });
+  const [form, setForm] = useState<Omit<Task, 'id'>>(() => task ? { ...withoutId(task), progress: taskProgress(task) } : { ...blankTask(), deadline: defaultDate || '', projectId: defaultProjectId || '' });
   const [wide, setWide] = useState(true);
   const [busy, setBusy] = useState(false), [subtask, setSubtask] = useState(''), [refTitle, setRefTitle] = useState(''), [refUrl, setRefUrl] = useState('');
   const [selectedReference, setSelectedReference] = useState(''), [deleteOpen, setDeleteOpen] = useState(false), [saveError, setSaveError] = useState('');

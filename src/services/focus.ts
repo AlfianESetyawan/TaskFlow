@@ -34,3 +34,13 @@ export function rankFocusTasks(tasks: Task[], projects: Project[], date = new Da
     || a.id.localeCompare(b.id)
   );
 }
+
+export function todayFocusTasks(tasks: Task[], projects: Project[], date = new Date()): Task[] {
+  const today = format(date, 'yyyy-MM-dd');
+  const active = tasks.filter(task => !task.archived && task.status !== 'done');
+  const dueToday = active.filter(task => task.deadline === today);
+  const ranked = dueToday.length
+    ? [...rankFocusTasks(dueToday, projects, date), ...rankFocusTasks(active.filter(task => task.assignedDate === today && task.deadline !== today), projects, date)]
+    : rankFocusTasks(active, projects, date);
+  return ranked.slice(0, 5);
+}

@@ -10,9 +10,10 @@ import { deliverDueNotifications } from '../services/notifications';
 import { widgetTaskGroups, type WidgetSection } from '../services/widgetTasks';
 import type { Project, Task } from '../types';
 import './widget.css';
+import { DesktopUpdateNotice } from '../components/DesktopUpdates';
 
 const sections: { key: WidgetSection; label: string }[] = [
-  { key: 'today', label: 'Today' },
+  { key: 'today', label: 'Focus' },
   { key: 'upcoming', label: 'Next 7d' },
   { key: 'overdue', label: 'Overdue' },
   { key: 'unscheduled', label: 'No date' },
@@ -139,7 +140,7 @@ export default function WidgetApp() {
   const [saved, setSaved] = useState(false);
   const [busyTaskId, setBusyTaskId] = useState('');
   const [lastCompleted, setLastCompleted] = useState<Task | null>(null);
-  const groups = useMemo(() => widgetTaskGroups(tasks, now), [tasks, now]);
+  const groups = useMemo(() => widgetTaskGroups(tasks, now, projects), [tasks, now, projects]);
   const visibleTasks = groups[section].slice(0, 8);
 
   useEffect(() => {
@@ -218,6 +219,7 @@ export default function WidgetApp() {
         <button title="Hide to tray" aria-label="Hide to tray" onClick={() => run(() => isTauri() ? invoke('hide_widget') : Promise.resolve(location.assign('/')))}><X size={17} /></button>
       </div>
     </header>
+    <DesktopUpdateNotice compact/>
 
     {!configured ? <div className="widget-state"><AlertCircle /><strong>Firebase is not configured</strong><p>Add the VITE_FIREBASE values to `.env`, then restart the app.</p></div> :
       authLoading ? <div className="widget-state">Checking your session...</div> :

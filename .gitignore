@@ -10,3 +10,7 @@ src-tauri/target/
 src-tauri/gen/schemas/
 src-tauri/icons/android/
 src-tauri/icons/ios/
+
+# Updater signing keys must never be committed.
+*.key
+*.key.pub
