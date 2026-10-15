@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow 1.2.4 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
+TaskFlow 1.2.5 is a React, TypeScript, Vite, and Firebase task manager built from the static mockups in `Design/stitch_taskflow_modern_productivity_platform/`. The original design files remain untouched.
 
 ## Design mapping
 
@@ -28,7 +28,7 @@ Without Firebase configuration, the sign in page explains what is missing and di
 
 `npm run build` creates `dist/`. Netlify settings are in `netlify.toml`; Firebase Hosting settings are in `firebase.json`. `.firebaserc` selects Firebase project `taskflow-474ab` and the `taskflow-byaleks` Hosting site, which serves `taskflow-byaleks.web.app`. Set the `VITE_FIREBASE_*` variables before building. The Firebase client configuration is public by design; ownership is enforced by Firestore rules. Do not put Admin SDK keys in frontend environment variables.
 
-To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting:app`. The web app downloads the Windows installer directly from the [GitHub Release](https://github.com/AlfianESetyawan/TaskFlow/releases/tag/v1.2.4). For each desktop release, upload the new installer to GitHub Releases and update `src/download.ts` before building the site. The earlier ZIP remains at `public/downloads/TaskFlow_1.2.4_Windows.zip` for existing links. Firebase Hosting on the Spark plan rejects `.exe` files. Add `taskflow-byaleks.web.app` to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
+To publish the prepared web build to Firebase Hosting, run `npm run build` and then `firebase deploy --only hosting:app`. The web app downloads the Windows installer directly from the [GitHub Release](https://github.com/AlfianESetyawan/TaskFlow/releases/tag/v1.2.5). For each desktop release, upload the new installer to GitHub Releases and update `src/download.ts` before building the site. The earlier ZIP remains at `public/downloads/TaskFlow_1.2.4_Windows.zip` for existing links. Firebase Hosting on the Spark plan rejects `.exe` files. Add `taskflow-byaleks.web.app` to Firebase Authentication's authorized domains before signing in on the published site. Deploy Firestore rules separately with `firebase deploy --only firestore` when they change.
 
 ## Data model
 
@@ -44,11 +44,13 @@ Today's Focus shows tasks due today first, followed by tasks assigned today. If 
 
 The widget is a companion window backed by the same Firebase account and Firestore collections. It has Today, Next 7 days, Overdue, and No date views, Quick Add, task completion with Undo, and a tray menu. Selecting a task opens its details in the full TaskFlow window.
 
+Each task can have an optional notification date and time. The installed Tauri app checks reminders while running, including when its windows are hidden in the system tray, and sends a native Windows toast. Completed or archived tasks do not notify. If the app starts up to 15 minutes after a reminder, it catches up once; reminders require the app to be running and Windows notification permission. Native desktop notifications cannot be scheduled by the Tauri plugin while the app is closed.
+
 1. Install the [Tauri Windows prerequisites](https://v2.tauri.app/start/prerequisites/): Rust with the MSVC toolchain, Microsoft C++ Build Tools with the Windows SDK, and WebView2. Check your setup with `npm exec tauri info`.
 2. Keep the same `VITE_FIREBASE_*` values in `.env` as the web app. Enable Firebase Email/Password and Google authentication, and deploy the repository's Firestore rules. In Google Cloud Console, select the **same project as Firebase** and create an OAuth client with application type **Desktop app**, then set its client ID as `VITE_GOOGLE_DESKTOP_CLIENT_ID` in `.env`. The number before the hyphen in that ID should match `VITE_FIREBASE_MESSAGING_SENDER_ID`. If Google reports `client_secret is missing` during token exchange, set `GOOGLE_DESKTOP_CLIENT_SECRET` to the secret shown for that Desktop client and rebuild. The web OAuth client ID is not suitable for the desktop loopback redirect. Desktop OAuth client secrets are embedded in installed applications and cannot be kept confidential.
 3. Run `npm install`, then `npm run widget:dev`. For an installer, run `npm run widget:build`; the NSIS output is under `src-tauri/target/release/bundle/nsis/`.
 
-The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.4 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.4_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
+The Windows prerequisites are installed on this development machine. If an existing terminal cannot find `cargo`, restart the terminal or IDE so it picks up Rust's PATH entry. The 1.2.5 installer is built at `src-tauri/target/release/bundle/nsis/TaskFlow_1.2.5_x64-setup.exe`. The main window disables Tauri's native file-drop handler so Kanban and calendar HTML drag and drop work in WebView2.
 
 For a quick UI preview without Rust, run `npm run dev` and open `http://localhost:5173/?widget-preview=1`. Browser preview uses that browser's Firebase session. The installed widget uses WebView2 storage and requires a separate sign-in. Its Google button opens the default browser and receives the result through a temporary `127.0.0.1` callback, which times out after three minutes. The full Tauri window uses the same flow. The web app continues to use Firebase's browser popup.
 

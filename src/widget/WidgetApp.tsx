@@ -5,8 +5,8 @@ import { invoke, isTauri } from '@tauri-apps/api/core';
 import { AlertCircle, ArrowUpRight, CalendarDays, Check, Circle, Clock3, LogOut, Moon, Plus, Sun, X } from 'lucide-react';
 import { auth, configured } from '../services/firebase';
 import { signInWithGoogle } from '../services/googleSignIn';
-import { useWindowVisibility } from '../hooks/useWindowVisibility';
 import { createTask, taskProgress, updateTask, watchProjects, watchTasks } from '../services/data';
+import { deliverDueNotifications } from '../services/notifications';
 import { widgetTaskGroups, type WidgetSection } from '../services/widgetTasks';
 import type { Project, Task } from '../types';
 import './widget.css';
@@ -23,7 +23,6 @@ function message(error: unknown): string {
 }
 
 function useWidgetData() {
-  const visible = useWindowVisibility();
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(configured);
   const [dataLoading, setDataLoading] = useState(false);
@@ -44,7 +43,7 @@ function useWidgetData() {
   }, []);
 
   useEffect(() => {
-    if (!user || !visible) {
+    if (!user) {
       if (!user) { setTasks([]); setProjects([]); }
       setDataLoading(false);
       return;
@@ -70,7 +69,22 @@ function useWidgetData() {
       setDataLoading(false);
     });
     return () => { unsubscribeTasks(); unsubscribeProjects(); };
-  }, [user, visible]);
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    let checking = false;
+    const check = () => {
+      if (checking) return;
+      checking = true;
+      void deliverDueNotifications(user.uid, tasks)
+        .catch(error => setError(`Notifications: ${message(error)}`))
+        .finally(() => { checking = false; });
+    };
+    check();
+    const timer = window.setInterval(check, 15000);
+    return () => window.clearInterval(timer);
+  }, [user, tasks]);
 
   return { user, authLoading, dataLoading, tasks, projects, error, setError };
 }
