@@ -4,12 +4,13 @@ service cloud.firestore {
     function owner(uid) { return request.auth != null && request.auth.uid == uid; }
     function only(keys) { return request.resource.data.keys().hasOnly(keys); }
     function validTask() {
-      return only(['title','description','projectId','assignedDate','startDate','deadline','priority','status','progress','subtasks','references','notes','recurrence','completedAt','createdAt','updatedAt','archived','occurrenceKey'])
+      return only(['title','description','projectId','assignedDate','startDate','deadline','notificationAt','priority','status','progress','subtasks','references','notes','recurrence','completedAt','createdAt','updatedAt','archived','occurrenceKey'])
         && request.resource.data.title is string && request.resource.data.title.size() > 0 && request.resource.data.title.size() <= 300
         && request.resource.data.description is string && request.resource.data.description.size() <= 20000
         && request.resource.data.notes is string && request.resource.data.notes.size() <= 20000
         && request.resource.data.projectId is string
         && request.resource.data.assignedDate is string && request.resource.data.startDate is string && request.resource.data.deadline is string
+        && (!('notificationAt' in request.resource.data) || request.resource.data.notificationAt is string)
         && request.resource.data.priority in ['low','medium','high','urgent']
         && request.resource.data.status in ['todo','progress','review','done']
         && (!('progress' in request.resource.data) || (request.resource.data.progress is int && request.resource.data.progress >= 0 && request.resource.data.progress <= 100))
